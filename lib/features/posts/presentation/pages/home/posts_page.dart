@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:my_clean_app/core/constants/app_colors.dart';
+import 'package:my_clean_app/features/posts/domain/entities/post.dart';
 import 'package:my_clean_app/features/posts/presentation/bloc/post/remote/remote_post_bloc.dart';
 import 'package:my_clean_app/features/posts/presentation/widgets/post_item.dart';
+
+import '../../../../../config/routes/routes.dart';
 
 class PostPage extends StatelessWidget {
   const PostPage({super.key});
@@ -12,6 +15,12 @@ class PostPage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Posts App'),
+        actions: [
+          IconButton(
+            onPressed: () => _onShowSavedPostsTapped(context),
+            icon: const Icon(Icons.bookmark),
+          ),
+        ],
       ),
       body: BlocBuilder<RemotePostBloc, RemotePostState>(
           builder: ((context, state) {
@@ -31,11 +40,12 @@ class PostPage extends StatelessWidget {
               itemBuilder: (context, index) {
                 return PostItem(
                   postEntity: state.posts![index],
+                  onPostPressed:(post) =>_onPostPressed(context,post),
                   color: index % 3 == 0
                       ? AppColors.gradient1
                       : index % 3 == 1
-                      ? AppColors.gradient2
-                      : AppColors.gradient3,
+                          ? AppColors.gradient2
+                          : AppColors.gradient3,
                 );
               });
         }
@@ -44,5 +54,13 @@ class PostPage extends StatelessWidget {
         );
       })),
     );
+  }
+
+  void _onPostPressed(BuildContext context, PostEntity post) {
+    Navigator.pushNamed(context, AppRouteNames.postDetail, arguments: post);
+  }
+
+  void _onShowSavedPostsTapped(BuildContext context) {
+    Navigator.pushNamed(context, AppRouteNames.savedPosts);
   }
 }

@@ -11,8 +11,10 @@ part of 'post_api_service.dart';
 class _PostApiService implements PostApiService {
   _PostApiService(
     this._dio, {
-    this.baseUrl = 'https://jsonplaceholder.typicode.com',
-  });
+    this.baseUrl,
+  }) {
+    baseUrl ??= 'https://jsonplaceholder.typicode.com';
+  }
 
   final Dio _dio;
 
