@@ -100,7 +100,7 @@ class _$AppDatabase extends AppDatabase {
 class _$PostDao extends PostDao {
   _$PostDao(this.database, this.changeListener)
       : _queryAdapter = QueryAdapter(database),
-        _articleModelInsertionAdapter = InsertionAdapter(
+        _postModelInsertionAdapter = InsertionAdapter(
             database,
             'post',
             (PostModel item) => <String, Object?>{
@@ -110,7 +110,7 @@ class _$PostDao extends PostDao {
                   'body': item.body,
                   
                 }),
-        _articleModelDeletionAdapter = DeletionAdapter(
+        _postModelDeletionAdapter = DeletionAdapter(
             database,
             'post',
             ['id'],
@@ -127,13 +127,13 @@ class _$PostDao extends PostDao {
 
   final QueryAdapter _queryAdapter;
 
-  final InsertionAdapter<PostModel> _articleModelInsertionAdapter;
+  final InsertionAdapter<PostModel> _postModelInsertionAdapter;
 
-  final DeletionAdapter<PostModel> _articleModelDeletionAdapter;
+  final DeletionAdapter<PostModel> _postModelDeletionAdapter;
 
   @override
   Future<List<PostModel>> getPosts() async {
-    return _queryAdapter.queryList('SELECT * FROM article',
+    return _queryAdapter.queryList('SELECT * FROM post',
         mapper: (Map<String, Object?> row) => PostModel(
             id: row['id'] as int?,
             userId: row['userId'] as  int,
@@ -143,12 +143,12 @@ class _$PostDao extends PostDao {
 
   @override
   Future<void> insertPost(PostModel post ) async {
-    await _articleModelInsertionAdapter.insert(
+    await _postModelInsertionAdapter.insert(
         post, OnConflictStrategy.abort);
   }
 
   @override
   Future<void> deletePost(PostModel postModel) async {
-    await _articleModelDeletionAdapter.delete(postModel);
+    await _postModelDeletionAdapter.delete(postModel);
   }
 }

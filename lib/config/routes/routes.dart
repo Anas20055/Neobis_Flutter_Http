@@ -12,7 +12,7 @@ abstract class AppRouteNames{
 
 
 
-class AppRoutes {
+abstract class AppRoutes {
   static Route onGenerateRoutes(RouteSettings settings) {
     switch (settings.name) {
       case AppRouteNames.mainScreen:

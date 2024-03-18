@@ -1,11 +1,9 @@
-import 'package:flutter/material.dart';
-import 'package:my_clean_app/core/constants/app_colors.dart';
-
-ThemeData theme(){
+part of '../../main.dart';
+ThemeData _theme(){
   return ThemeData(
     scaffoldBackgroundColor: AppColors.backgroundColor,
     fontFamily: 'Muli',
-    appBarTheme: appBarThem(),
+    appBarTheme: _appBarThem(),
     iconTheme: const IconThemeData(color: Colors.white),
     progressIndicatorTheme:const  ProgressIndicatorThemeData(color: Colors.white),
     textTheme: const TextTheme(bodyMedium: TextStyle(color: Colors.white,fontWeight: FontWeight.w100))
@@ -14,7 +12,7 @@ ThemeData theme(){
   );
 }
 
-AppBarTheme appBarThem(){
+AppBarTheme _appBarThem(){
   return const AppBarTheme(
     color: AppColors.backgroundColor,
     centerTitle: true,
