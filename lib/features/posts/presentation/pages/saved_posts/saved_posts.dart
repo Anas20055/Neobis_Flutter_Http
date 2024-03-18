@@ -46,8 +46,8 @@ class _SavedPostsState extends State<SavedPosts> {
               itemBuilder: (context, index) {
                 return PostItem(
                   postEntity: state.posts![index],
-                  onPostPressed: (post) => _onPostPressed(context, post),
-                  onRemove: (post) => _onRemovePost(context, post),
+                  onPostPressed: _onPostPressed,
+                  onRemove:  _onRemovePost,
                   isRemovable: true,
                   color: index % 3 == 0
                       ? AppColors.gradient1
@@ -64,11 +64,11 @@ class _SavedPostsState extends State<SavedPosts> {
     );
   }
 
-  void _onRemovePost(BuildContext context, PostEntity post) {
+  void _onRemovePost(PostEntity post) {
     BlocProvider.of<LocalPostBloc>(context).add(RemovePost(post));
   }
 
-  void _onPostPressed(BuildContext context, PostEntity post) {
+  void _onPostPressed(PostEntity post) {
     Navigator.pushNamed(context, AppRouteNames.postDetail, arguments: post);
   }
 }

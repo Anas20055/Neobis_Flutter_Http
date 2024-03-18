@@ -7,9 +7,19 @@ import 'package:my_clean_app/features/posts/presentation/widgets/post_item.dart'
 
 import '../../../../../config/routes/routes.dart';
 
-class PostPage extends StatelessWidget {
+class PostPage extends StatefulWidget {
   const PostPage({super.key});
 
+  @override
+  State<PostPage> createState() => _PostPageState();
+}
+
+class _PostPageState extends State<PostPage> {
+  @override
+  void initState() {
+    BlocProvider.of<RemotePostBloc>(context).add(const GetPosts());
+    super.initState();
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -17,7 +27,7 @@ class PostPage extends StatelessWidget {
         title: const Text('Posts App'),
         actions: [
           IconButton(
-            onPressed: () => _onShowSavedPostsTapped(context),
+            onPressed:_onShowSavedPostsTapped,
             icon: const Icon(Icons.bookmark),
           ),
         ],
@@ -40,7 +50,7 @@ class PostPage extends StatelessWidget {
               itemBuilder: (context, index) {
                 return PostItem(
                   postEntity: state.posts![index],
-                  onPostPressed:(post) =>_onPostPressed(context,post),
+                  onPostPressed:_onPostPressed,
                   color: index % 3 == 0
                       ? AppColors.gradient1
                       : index % 3 == 1
@@ -56,11 +66,11 @@ class PostPage extends StatelessWidget {
     );
   }
 
-  void _onPostPressed(BuildContext context, PostEntity post) {
+  void _onPostPressed(PostEntity post) {
     Navigator.pushNamed(context, AppRouteNames.postDetail, arguments: post);
   }
 
-  void _onShowSavedPostsTapped(BuildContext context) {
+  void _onShowSavedPostsTapped() {
     Navigator.pushNamed(context, AppRouteNames.savedPosts);
   }
 }

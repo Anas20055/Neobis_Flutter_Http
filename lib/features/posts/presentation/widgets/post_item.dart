@@ -63,17 +63,9 @@ class PostItem extends StatelessWidget {
     );
   }
 
-  void _onTap() {
-    if (onPostPressed != null) {
-      onPostPressed!(postEntity);
-    }
-  }
+  void _onTap() => onPostPressed?.call(postEntity);
 
-  void _onRemove() {
-    if (onRemove != null) {
-      onRemove!(postEntity);
-    }
-  }
+  void _onRemove() => onRemove?.call(postEntity);
 
   Widget _buidButton() {
     if (isRemovable ?? false) {

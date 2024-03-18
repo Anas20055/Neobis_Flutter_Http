@@ -21,7 +21,7 @@ class MainApp extends StatelessWidget {
     return MultiBlocProvider(
       providers: [
         BlocProvider<RemotePostBloc>(
-          create: (context) => sl()..add(const GetPosts()),
+          create: (context) => sl<RemotePostBloc>(),
         ),
         BlocProvider(
           create: (context) => sl<LocalPostBloc>(),
